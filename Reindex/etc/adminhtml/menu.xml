@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Jundat_Reindex::menu" title="Jundat" module="Jundat_Reindex" sortOrder="400" resource="Jundat_Reindex::config_reindex"/>
+        <add id="Jundat_Reindex::group_reindex" title="Reindex" module="Jundat_Reindex" sortOrder="10" parent="Jundat_Reindex::menu" resource="Jundat_Reindex::config_reindex" />
+        <add id="Jundat_Reindex::configuration" title="Settings" module="Jundat_Reindex" sortOrder="10" parent="Jundat_Reindex::group_reindex" action="adminhtml/system_config/edit/section/reindex/" resource="Jundat_Reindex::config_reindex"/>
+    </menu>
+</config>

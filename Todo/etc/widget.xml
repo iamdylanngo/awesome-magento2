@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:helloworld:Magento_Widget:etc/widget.xsd">
+    <widget class="Jundat\Todo\Block\Widget\Product\Price" id="jundat_todo_widget_price">
+        <label>Todo Product Price</label>
+        <description>Todo Product Price</description>
+        <parameters>
+            <parameter name="posts" sort_order="10" visible="true" xsi:type="text">
+                <label>Price</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

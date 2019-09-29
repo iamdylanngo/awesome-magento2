@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Jundat\Queue\Api\SpecialPriceInterface" type="Jundat\Queue\Model\SpecialPriceManagement" />
+    <preference for="Jundat\Queue\Api\Data\SpecialPriceResultInterface" type="Jundat\Queue\Model\Data\SpecialPriceResult"/>
+    <preference for="Jundat\Queue\Api\Data\SpecialPriceInterface" type="Jundat\Queue\Model\Data\SpecialPrice"/>
+</config>

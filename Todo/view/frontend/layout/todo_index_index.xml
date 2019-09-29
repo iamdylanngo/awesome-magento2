@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content">
+        <block class="Jundat\Todo\Block\Index" name="jundat_todo_list" template="Jundat_Todo::todo-list.phtml" />
+    </referenceContainer>
+</page>

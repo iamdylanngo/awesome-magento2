@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="GET" url="/V1/jundat/get">
+		<service class="Jundat\Cert\Api\PostInterface" method="get"/>
+		<resources>
+			<!-- <resource ref="Jundat_Cert::all_actions"/> -->
+            <resource ref="self"/>
+		</resources>
+	</route>
+</routes>

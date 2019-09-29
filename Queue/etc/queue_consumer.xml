@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer
+            name="asyncProductSpecialPrice"
+            queue="async_product_special_price"
+            connection="amqp"
+            handler="Jundat\Queue\Model\Product\SpecialPriceHandler::processMessage"
+    />
+</config>

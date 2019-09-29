@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="jundat" translate="label" sortOrder="200">
+            <label>Jundat</label>
+        </tab>
+        <section id="reindex" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Reindex</label>
+            <tab>jundat</tab>
+            <resource>Jundat_Reindex::config_reindex</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="list_mode" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reindex Mode</label>        
+                    <source_model>Jundat\Reindex\Model\Config\Source\ListMode</source_model>
+                    <comment>Select mode asynchronous if server support command line</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

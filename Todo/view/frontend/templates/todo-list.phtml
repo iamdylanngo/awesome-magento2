@@ -1,0 +1,41 @@
+<?php
+    /**
+     * @var $block \Jundat\Todo\Block\Index
+     */
+    $todos = $block->getAllTodo();
+?>
+<div class="container">
+    <header>
+        <h1>Todos</h1>
+    </header>
+    <ul class="items">
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Completed</th>
+                <th>Create At</th>
+                <th>Update At</th>
+            </tr>
+            <?php foreach ($todos as $item): ?>
+                <tr>
+                    <td><?= /* @escapeNotVerified */ $item->getData('title') ?></td>
+                    <td><?= /* @escapeNotVerified */ $item->getData('description') ?></td>
+                    <td><?= /* @escapeNotVerified */ $item->getData('deadline') ?></td>
+                    <td><?= /* @escapeNotVerified */ $item->getData('completed') ?></td>
+                    <td><?= /* @escapeNotVerified */ $item->getData('create_at') ?></td>
+                    <td><?= /* @escapeNotVerified */ $item->getData('update_at') ?></td>
+                </tr>
+            <?php endforeach;?>
+        </table>
+    </ul>
+    <form action="<?= $block->getAction() ?>" class="new">
+        <h1>New</h1>
+        <div class="new-item">
+            <input name="title" class="title" id="title" type="text" placeholder="Todo Title..">
+            <textarea name="description" class="description" id="description" placeholder="Todo Description.." maxlength="256"></textarea>
+        </div>
+        <button>Add</button>
+    </form>
+</div>
