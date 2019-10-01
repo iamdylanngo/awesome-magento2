@@ -1,4 +1,16 @@
-<?php if($block->getData('productId')): ?>
-    <h2 class='posts'><?php echo $block->getData('productId'); ?></h2>
-    <p>This is sample widget. Perform your code here.</p>
+<?php
+/**
+ * @var $block \Jundat\Cert\Block\Widget\Product
+ */
+?>
+<?php
+    $productImages = $block->getProductImages();
+?>
+<?php if ($block->getData('productId')): ?>
+    <h2 class='product-id'>
+        <p>Product Id: <?= /* @escapeNotVerified */ $block->getData('productId'); ?></p>
+    </h2>
+    <img src="<?= /* @escapeNotVerified */ $productImages[0] ?>" alt="product image" width="300" height="300">
+    <p><?= /* @escapeNotVerified */ $block->getProductDesc() ?></p>
+    <p>Final Price: <?= /* @escapeNotVerified */ $block->renderProductPrice(); ?></p>
 <?php endif; ?>
