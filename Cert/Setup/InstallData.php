@@ -2,8 +2,8 @@
 
 namespace Jundat\Cert\Setup;
 
+use Magento\Customer\Model\Customer;
 use Magento\Eav\Setup\EavSetup;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -17,27 +17,21 @@ class InstallData implements InstallDataInterface
     protected $eavSetupFactory;
 
     /**
-     * @var \Magento\Eav\Model\Config $config
+     * @var \Magento\Eav\Model\Config $eavConfig
      */
-    protected $config;
-
-    /**
-     * @var \Magento\Customer\Setup\CustomerSetupFactory $customerSetupFactory
-     */
-    protected $customerSetupFactory;
+    protected $eavConfig;
 
     /**
      * InstallData constructor.
      * @param \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+     * @param \Magento\Eav\Model\Config $eavConfig
      */
     public function __construct(
         \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
-        \Magento\Eav\Model\Config $config,
-        \Magento\Customer\Setup\CustomerSetupFactory $customerSetupFactory
+        \Magento\Eav\Model\Config $eavConfig
     ) {
         $this->eavSetupFactory = $eavSetupFactory;
-        $this->config = $config;
-        $this->customerSetupFactory = $customerSetupFactory;
+        $this->eavConfig = $eavConfig;
     }
 
     /**
@@ -50,9 +44,7 @@ class InstallData implements InstallDataInterface
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        $setup->startSetup();
         $this->installCustomerAttribute($setup);
-        $setup->endSetup();
     }
 
     /**
@@ -61,58 +53,69 @@ class InstallData implements InstallDataInterface
      */
     public function installCustomerAttribute(ModuleDataSetupInterface $setup)
     {
-        /** @var EavSetup $eavSetup */
+        /**
+         * @var \Magento\Eav\Setup\EavSetup $eavSetup
+         */
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
-        /**
-         * @var \Magento\Customer\Setup\CustomerSetup $customerSetup
-         */
-        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
+        $eavSetup->addAttribute(
+            Customer::ENTITY,
+            'phone_number',
+            [
+                'type'         => 'varchar', // attribute with varchar type
+                'label'        => 'Phone Number',
+                'input'        => 'text',  // attribute input field is text
+                'required'     => false,  // field is not required
+                'visible'      => true,
+                'user_defined' => false,
+                'position'     => 999,
+                'sort_order'  => 999,
+                'system'       => 0,
+                'is_used_in_grid' => 1,   //setting grid options
+                'is_visible_in_grid' => 1,
+                'is_filterable_in_grid' => 1,
+                'is_searchable_in_grid' => 1,
+            ]
+        );
+
+        $attribute = $this->eavConfig->getAttribute(Customer::ENTITY, 'phone_number');
+
+        $attribute->setData(
+            'used_in_forms',
+            ['adminhtml_customer', 'customer_account_create']
+
+        );
+        $attribute->save();
 
         /**
-         * Add attributes to the eav/attribute table
+         * Create a select box attribute
          */
-        try {
+        $attributeCode = 'my_customer_type';
 
-            /**
-             * Create a select box attribute
-             */
-            $attributeCode = 'my_customer_type';
+        $eavSetup->addAttribute(
+            \Magento\Customer\Model\Customer::ENTITY,
+            $attributeCode,
+            [
+                'type' => 'int',
+                'label' => 'My Customer Type',
+                'input' => 'select',
+                'source' => 'Jundat\Cert\Model\Config\Source\MyCustomerType',
+                'required' => false,
+                'visible' => true,
+                'position' => 300,
+                'system' => false,
+                'backend' => ''
+            ]
+        );
 
-            $customerSetup->addAttribute(
-                \Magento\Customer\Model\Customer::ENTITY,
-                $attributeCode,
-                [
-                    'type'         => 'varchar',
-                    'label'        => 'Sample Attribute',
-                    'input'        => 'text',
-                    'required'     => false,
-                    'visible'      => true,
-                    'user_defined' => true,
-                    'position'     => 999,
-                    'system'       => 0,
-                ]
-            );
-            // show the attribute in the following forms
-            $attribute = $customerSetup
-                ->getEavConfig()
-                ->getAttribute(
-                    \Magento\Customer\Model\Customer::ENTITY,
-                    $attributeCode
-                )
-                ->addData(
-                    ['used_in_forms' => [
-                        'adminhtml_customer',
-                        'adminhtml_checkout',
-                        'customer_account_create',
-                        'customer_account_edit'
-                    ]
-                    ]
-                );
-            $attribute->save();
+        $attribute = $this->eavConfig->getAttribute(Customer::ENTITY, $attributeCode);
 
-        } catch (LocalizedException $e) {
-        } catch (\Zend_Validate_Exception $e) {
-        }
+        //ex ['adminhtml_checkout','adminhtml_customer','adminhtml_customer_address','customer_account_edit','customer_address_edit','customer_register_address', 'customer_account_create']
+        $attribute->setData(
+            'used_in_forms',
+            ['adminhtml_customer', 'customer_account_create']
+
+        );
+        $attribute->save();
     }
 }
