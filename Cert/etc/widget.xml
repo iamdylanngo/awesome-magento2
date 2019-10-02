@@ -9,4 +9,8 @@
             </parameter>
         </parameters>
     </widget>
+    <widget class="Jundat\Cert\Block\Widget\Product\ProductList" id="jundat_cert_product_list">
+        <label>Cert Product List</label>
+        <description>Cert Product List</description>
+    </widget>
 </widgets>
