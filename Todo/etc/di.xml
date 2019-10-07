@@ -3,4 +3,6 @@
     <type name="Magento\Catalog\Model\ResourceModel\Product">
         <plugin name="publish_product_delete" type="Jundat\Todo\Plugin\ProductDeletePlugin"/>
     </type>
+    <virtualType name="Jundat\Todo\Observer\Message1" type="Jundat\Todo\Observer\Message" shared="false">
+    </virtualType>
 </config>

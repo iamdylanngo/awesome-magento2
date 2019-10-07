@@ -67,7 +67,7 @@ class InstallData implements InstallDataInterface
                 'input'        => 'text',  // attribute input field is text
                 'required'     => false,  // field is not required
                 'visible'      => true,
-                'user_defined' => false,
+                'user_defined' => true,
                 'position'     => 999,
                 'sort_order'  => 999,
                 'system'       => 0,

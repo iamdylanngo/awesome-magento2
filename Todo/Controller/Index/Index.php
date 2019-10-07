@@ -78,6 +78,12 @@ class Index extends Action
         $title = $this->getRequest()->getParam('title') ?? "";
         $description = $this->getRequest()->getParam('description') ?? "";
 
+
+        $payload = new \Magento\Framework\DataObject(array('name' => $title));
+        $this->_eventManager->dispatch('cert_event_message', ['message' => $payload]);
+
+        $this->_eventManager->dispatch('cert_event_message1', ['message' => $payload]);
+
         if (!empty($title) && !empty($description)) {
             $this->addByFactory($title, $description);
             $this->_redirect('todo');
