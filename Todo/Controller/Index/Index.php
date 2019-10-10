@@ -75,11 +75,19 @@ class Index extends Action
      */
     public function execute()
     {
+        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
+        $logger = new \Zend\Log\Logger();
+        $logger->addWriter($writer);
+
         $title = $this->getRequest()->getParam('title') ?? "";
         $description = $this->getRequest()->getParam('description') ?? "";
+        $file = $this->getRequest()->getParams('link');
+        $fileName = basename($file['link']);
 
+        $logger->info(print_r($file, true));
+        $logger->info(print_r($fileName, true));
 
-        $payload = new \Magento\Framework\DataObject(array('name' => $title));
+        $payload = new \Magento\Framework\DataObject(['name' => $title]);
         $this->_eventManager->dispatch('cert_event_message', ['message' => $payload]);
 
         $this->_eventManager->dispatch('cert_event_message1', ['message' => $payload]);
