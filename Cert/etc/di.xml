@@ -1,4 +1,11 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 	<preference for="Jundat\Cert\Api\PostInterface" type="Jundat\Cert\Model\Post"/>
+	<type name="Magento\Framework\Console\CommandList">
+		<arguments>
+			<argument name="commands" xsi:type="array">
+				<item name="updateCustomer" xsi:type="object">Jundat\Cert\Console\Command\UpdateCustomer</item>
+			</argument>
+		</arguments>
+	</type>
 </config>
