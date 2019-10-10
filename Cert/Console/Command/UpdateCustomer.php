@@ -45,24 +45,23 @@ class UpdateCustomer extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $self = $this;
-        $this->state->emulateAreaCode(
-            \Magento\Framework\App\Area::AREA_FRONTEND,
-            function () use ($self, $input, $output) {
-                $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_WEBAPI_REST);
-                $output->writeln('<info>Creating new user...</info>');
+//        $this->state->emulateAreaCode(
+//            \Magento\Framework\App\Area::AREA_FRONTEND,
+//            function () use ($self, $input, $output) {
+//                $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_WEBAPI_REST);
+//                $output->writeln('<info>Creating new user...</info>');
+//
+//                $customer = $this->customerRepository->get('tinh.ngo@niteco.se');
+//                $output->writeln(print_r($customer->getEmail(), true));
+//
+//                $customerModel = $this->customerInterfaceFactory->create();
+//                $customerModel->setEmail('tinh.ngo1@gmail.com');
+//                $customerModel->setFirstname('Tinh');
+//                $customerModel->setLastname('Ngo');
+//                $this->customerRepository->save($customerModel);
+//            }
+//        );
 
-                $customer = $this->customerRepository->get('tinh.ngo@niteco.se');
-                $output->writeln(print_r($customer->getEmail(), true));
-
-                $customerModel = $this->customerInterfaceFactory->create();
-                $customerModel->setEmail('tinh.ngo1@gmail.com');
-                $customerModel->setFirstname('Tinh');
-                $customerModel->setLastname('Ngo');
-                $this->customerRepository->save($customerModel);
-            }
-        );
-
-//        $this->updateCustomer($input, $output);
         return Cli::RETURN_SUCCESS;
     }
 

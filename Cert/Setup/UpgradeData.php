@@ -20,12 +20,15 @@ class UpgradeData implements UpgradeDataInterface
      */
     protected $eavConfig;
 
+    /**
+     * @var \Magento\Sales\Setup\SalesSetup $salesSetup
+     */
+    protected $salesSetup;
 
     public function __construct(
         \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
         \Magento\Eav\Model\Config $eavConfig
-    )
-    {
+    ) {
         $this->eavSetupFactory = $eavSetupFactory;
         $this->eavConfig = $eavConfig;
     }
@@ -50,9 +53,7 @@ class UpgradeData implements UpgradeDataInterface
 
         $logger->info("start update data");
 
-
-        if (version_compare($context->getVersion(), '2.0.8', '>'))
-        {
+        if (version_compare($context->getVersion(), '2.0.8', '>')) {
             /**
              * @var \Magento\Eav\Setup\EavSetup $eavSetup
              */
@@ -89,6 +90,22 @@ class UpgradeData implements UpgradeDataInterface
             );
 
             $logger->info("add attribute success");
+
+            $eavSetup->addAttribute(
+                \Magento\Sales\Model\Order::ENTITY,
+                'custom_attribute',
+                [
+                    'type'         => 'varchar',            // attribute with varchar type
+                    'label'        => 'Custom Attribute',   // label
+                    'input'        => 'text',               // attribute input field is text
+                    'required'     => false,                // field is not required
+                    'visible'      => true,
+                    'user_defined' => true,
+                    'position'     => 150,
+                    'sort_order'  => 150,
+                    'system'       => true,
+                ]
+            );
 
         }
 
