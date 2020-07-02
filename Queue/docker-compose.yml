@@ -1,0 +1,23 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  rabbitmq:
+    image: 'bitnami/rabbitmq:latest'
+    networks:
+      - app-tier
+    environment:
+    - RABBITMQ_PASSWORD=admin@123
+    - RABBITMQ_USERNAME=admin
+    ports: 
+        - 15672:15672
+        - 5672:5672
+    volumes: 
+        - 'rabbitmqstats_data:/bitnami'
+
+volumes:
+  rabbitmqstats_data:
+    driver: local
